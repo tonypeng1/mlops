@@ -1,0 +1,23 @@
+{
+  "overall": {
+    "precision": 0.8433333333333335,
+    "recall": 0.8333333333333334,
+    "f1": 0.8292205248726987,
+    "num_samples": 30.0
+  },
+  "class": {
+    "natural-language-processing": {
+      "precision": 0.9,
+      "recall": 0.6923076923076923,
+      "f1": 0.7826086956521738,
+      "num_samples": 13.0
+    },
+    "other": {
+      "precision": 0.8,
+      "recall": 0.9411764705882353,
+      "f1": 0.8648648648648648,
+      "num_samples": 17.0
+    }
+  },
+  "slices": {}
+}
