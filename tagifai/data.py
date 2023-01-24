@@ -12,8 +12,9 @@ from sklearn.model_selection import train_test_split
 from config import config
 
 
-def clean_text(text: str, lower: bool = True, stem: bool = False,
-    stopwords=config.STOPWORDS) -> str:
+def clean_text(
+    text: str, lower: bool = True, stem: bool = False, stopwords=config.STOPWORDS
+) -> str:
     """Clean raw text.
     Args:
         text (str): raw text to be cleaned.
@@ -53,7 +54,7 @@ def clean_text(text: str, lower: bool = True, stem: bool = False,
 
 def replace_oos_labels(
     df: pd.DataFrame, labels: List, label_col: str, oos_label: str = "other"
-    ) -> pd.DataFrame:
+) -> pd.DataFrame:
     """Replace out of scope (OOS) labels.
     Args:
         df (pd.DataFrame): Pandas DataFrame with data.
@@ -70,7 +71,7 @@ def replace_oos_labels(
 
 def replace_minority_labels(
     df: pd.DataFrame, label_col: str, min_freq: int, new_label: str = "other"
-    ) -> pd.DataFrame:
+) -> pd.DataFrame:
     """Replace minority labels with another label.
     Args:
         df (pd.DataFrame): Pandas DataFrame with data.
@@ -109,7 +110,7 @@ def preprocess(df: pd.DataFrame, lower: bool, stem: bool, min_freq: int) -> pd.D
     return df
 
 
-class LabelEncoder(object):
+class LabelEncoder:
     """Encode labels into unique indices.
     ```python
     # Encode labels
@@ -189,7 +190,7 @@ class LabelEncoder(object):
         Returns:
             LabelEncoder instance.
         """
-        with open(fp, "r") as fp:
+        with open(fp) as fp:
             kwargs = json.load(fp=fp)
         return cls(**kwargs)
 

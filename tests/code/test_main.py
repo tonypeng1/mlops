@@ -1,11 +1,11 @@
+import os
+import sys
 from pathlib import Path
 
 import mlflow
 import pytest
 from typer.testing import CliRunner
 
-import os
-import sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir1 = os.path.dirname(currentdir)
 parentdir2 = os.path.dirname(parentdir1)
@@ -29,6 +29,7 @@ def test_elt_data():
     result = runner.invoke(app, ["elt-data"])
     assert result.exit_code == 0
 
+
 # experiment_name = "test_experiment"
 # run_name = "test_run"
 # result = runner.invoke(
@@ -45,6 +46,7 @@ def test_elt_data():
 
 # # Clean up
 # delete_experiment(experiment_name=experiment_name)
+
 
 @pytest.mark.training
 def test_train_model():
@@ -122,4 +124,3 @@ def test_predict_tag():
     text = "Transfer learning with transformers for text classification."
     result = runner.invoke(app, ["predict-tag", f"--text={text}"])
     assert result.exit_code == 0
-

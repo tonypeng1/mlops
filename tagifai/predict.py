@@ -1,5 +1,6 @@
-import numpy as np
 from typing import Dict, List
+
+import numpy as np
 
 
 def custom_predict(y_prob: np.ndarray, threshold: float, index: int) -> np.ndarray:
@@ -34,7 +35,7 @@ def predict(texts: List, artifacts: Dict) -> List:
     predictions = [
         {
             "input_text": texts[i],
-            "predicted_tags": tags[i],
+            "predicted_tag": tags[i],
         }
         for i in range(len(tags))
     ]

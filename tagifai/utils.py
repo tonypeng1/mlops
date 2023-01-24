@@ -12,12 +12,12 @@ def load_dict(filepath: str) -> Dict:
     Returns:
         Dict: loaded JSON data.
     """
-    with open(filepath, "r") as fp:
+    with open(filepath) as fp:
         d = json.load(fp)
     return d
 
 
-def save_dict(d: Dict, filepath: str, cls = None, sortkeys: bool = False) -> None:
+def save_dict(d: Dict, filepath: str, cls=None, sortkeys: bool = False) -> None:
     """Save a dictionary to a specific location.
     Args:
         d (Dict): data to save.

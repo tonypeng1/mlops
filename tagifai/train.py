@@ -4,8 +4,8 @@ from typing import Dict
 
 import mlflow
 import numpy as np
-import pandas as pd
 import optuna
+import pandas as pd
 from imblearn.over_sampling import RandomOverSampler
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import SGDClassifier

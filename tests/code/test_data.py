@@ -1,9 +1,16 @@
+import os
+import sys
 import tempfile
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 import pytest
+
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir1 = os.path.dirname(currentdir)
+parentdir2 = os.path.dirname(parentdir1)
+sys.path.append(parentdir2)
 
 from tagifai import data
 

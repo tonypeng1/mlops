@@ -1,4 +1,6 @@
 import json
+import os
+import sys
 import tempfile
 import warnings
 from argparse import Namespace
@@ -13,8 +15,6 @@ import typer
 from numpyencoder import NumpyEncoder
 from optuna.integration.mlflow import MLflowCallback
 
-import os
-import sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
@@ -52,7 +52,7 @@ def train_model(
     experiment_name: str = "baselines",
     run_name: str = "sgd",
     test_run: bool = False,
-    ) -> None:
+) -> None:
     """Train a model given arguments.
     Args:
         args_fp (str): location of args.

@@ -1,15 +1,16 @@
 # app/api.py
-from fastapi import FastAPI, Request
-from http import HTTPStatus
-from typing import Dict
 from datetime import datetime
 from functools import wraps
+from http import HTTPStatus
 from pathlib import Path
+from typing import Dict
+
+from fastapi import FastAPI, Request
+
+from app.schemas import PredictPayload
 from config import config
 from config.config import logger
-from tagifai import main
-from app.schemas import PredictPayload
-from tagifai import predict
+from tagifai import main, predict
 
 # Define application
 app = FastAPI(
@@ -64,7 +65,7 @@ def _index(request: Request) -> Dict:
 def _performance(request: Request, filter: str = None) -> Dict:
     """Get the performance metrics."""
     performance = artifacts["performance"]
-    data = {"performance":performance.get(filter, performance)}
+    data = {"performance": performance.get(filter, performance)}
     response = {
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,
@@ -113,7 +114,6 @@ def _predict(request: Request, payload: PredictPayload) -> Dict:
         "data": {"predictions": predictions},
     }
     return response
-
 
 
 # import json

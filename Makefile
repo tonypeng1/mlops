@@ -39,6 +39,7 @@ clean: style
 # Test
 .PHONY: test
 test:
+# source ~/OneDrive/OneDrive\ Documents/MadewithML/mlops/venv/bin/activate
 	pytest -m "not training"
 	cd tests && great_expectations checkpoint run projects
 	cd tests && great_expectations checkpoint run tags

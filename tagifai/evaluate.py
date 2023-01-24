@@ -46,7 +46,7 @@ def get_slice_metrics(y_true: np.ndarray, y_pred: np.ndarray, slices: np.recarra
 
 def get_metrics(
     y_true: np.ndarray, y_pred: np.ndarray, classes: List, df: pd.DataFrame = None
-    ) -> Dict:
+) -> Dict:
     """Performance metrics using ground truths and predictions.
     Args:
         y_true (np.ndarray): true labels.

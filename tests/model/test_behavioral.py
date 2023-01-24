@@ -1,6 +1,13 @@
+import os
+import sys
 from pathlib import Path
 
 import pytest
+
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir1 = os.path.dirname(currentdir)
+parentdir2 = os.path.dirname(parentdir1)
+sys.path.append(parentdir2)
 
 from config import config
 from tagifai import main, predict
