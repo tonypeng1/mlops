@@ -110,6 +110,7 @@ def test_optimize():
 
 
 def test_load_artifacts():
+    """rest docstring"""
     run_id = open(Path(config.CONFIG_DIR, "run_id.txt")).read()
     artifacts = main.load_artifacts(run_id=run_id)
     assert len(artifacts)

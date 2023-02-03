@@ -1,4 +1,5 @@
-# app/api.py
+import os
+import sys
 from datetime import datetime
 from functools import wraps
 from http import HTTPStatus
@@ -8,6 +9,11 @@ from typing import Dict
 from fastapi import FastAPI, Request
 
 from app.schemas import PredictPayload
+
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
 from config import config
 from config.config import logger
 from tagifai import main, predict

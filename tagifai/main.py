@@ -43,7 +43,7 @@ def elt_data():
     df = df[df.tag.notnull()]  # drop rows w/ no tag
     df.to_csv(Path(config.DATA_DIR, "labeled_projects.csv"), index=False)
 
-    logger.info("✅ Saved data!")
+    # logger.info("✅ Saved data!")
 
 
 @app.command()

@@ -1,3 +1,5 @@
+""" This is a config file. """
+
 # config/config.py
 import logging
 import os
@@ -275,4 +277,4 @@ STOPWORDS = [
     "wouldn't",
 ]
 
-logger.info("✅ Config data saved!")
+# logger.info("✅ Config data saved!")

@@ -1,7 +1,8 @@
 ## Documentation
 
-- [Workflows](tagifai/main.md): main workflows.
-- [tagifai](tagifai/data.md): documentation of functionality.
+- [Workflows](tagifai/main.md): main workflows
+- [tagifai](tagifai/data.md): documentation of functionality
+- [config](config/config.md): configurations
 
 ## MLOps Lessons
 

@@ -1,4 +1,3 @@
-# app/schemas.py
 from typing import List
 
 from fastapi import Query

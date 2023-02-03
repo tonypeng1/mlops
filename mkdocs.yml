@@ -12,8 +12,19 @@ nav:
     - predict: tagifai/predict.md
     - train: tagifai/train.md
     - utils: tagifai/utils.md
+  - configuration:
+    - package: config/package.md
+    - config: config/config.md
+  - tests:
+    - main: tests/main.md
+    - data: tests/data.md
 theme: readthedocs
 plugins:
   - mkdocstrings
-watch:
-  - .  # reload docs for any file changes
+      # handlers:
+      #   python:
+      #     setup_commands:
+      #       - import sys
+      #       - sys.path.append("tests")
+# watch:
+#   - .  # reload docs for any file changes

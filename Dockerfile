@@ -21,6 +21,8 @@ COPY config config
 COPY stores stores
 
 # Pull assets from S3
+RUN pip install --force-reinstall -v "fsspec==2022.11.0"
+# added to make dvc==2.10.2 works, see stackoverflow
 RUN dvc init --no-scm
 RUN dvc remote add -d storage stores/blob
 RUN dvc pull
