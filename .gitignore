@@ -8,5 +8,12 @@ venv/
 *.egg-info/
 __pycache__/
 
+# Unit test / coverage reports
+.coverage
+.coverage.*
+
 # Misc
 .DS_Store
+practice/
+mlruns
+great_expectation_try.ipynb

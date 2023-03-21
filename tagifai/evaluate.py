@@ -1,9 +1,30 @@
+"""# **Evaluation**
+
+> Evaluating ML models by assessing overall, per-class and slice performances.
+>
+> * Compute the coarse-grained metrics such as overall precision, recall and
+> f1 metrics.
+>
+> * Evaluate the same fine-grained metrics for each class (computer-vision, mlops, ...).
+>
+> * Inspect the metrics of key slices of our dataset that we need to do really well on:
+>> * Features (explicit and implicit)
+>>
+>> * Metadata (timestamps, sources, etc.)
+>>
+>> * Priority slices / experience (minority groups, large customers, etc.)
+>
+
+"""
+
 from typing import Dict, List
 
 import numpy as np
 import pandas as pd
 from sklearn.metrics import precision_recall_fscore_support
 from snorkel.slicing import PandasSFApplier, slicing_function
+
+# from snorkel.slicing import slice_dataframe
 
 
 @slicing_function()
@@ -77,6 +98,7 @@ def get_metrics(
         }
 
     # Slice metrics
+    # for i in [nlp_cnn, short_text]: print(slice_dataframe(df, i))
     if df is not None:
         slices = PandasSFApplier([nlp_cnn, short_text]).apply(df)
         metrics["slices"] = get_slice_metrics(y_true=y_true, y_pred=y_pred, slices=slices)

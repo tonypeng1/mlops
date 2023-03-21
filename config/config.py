@@ -7,8 +7,14 @@ import sys
 from pathlib import Path
 
 import mlflow
-import pretty_errors  # NOQA: F401 (imported but unused)
 from rich.logging import RichHandler
+
+# Assets
+PROJECTS_URL = (
+    "https://raw.githubusercontent.com/GokuMohandas/Made-With-ML/main/datasets/projects.csv"
+)
+TAGS_URL = "https://raw.githubusercontent.com/GokuMohandas/Made-With-ML/main/datasets/tags.csv"
+ACCEPTED_TAGS = ["natural-language-processing", "computer-vision", "mlops", "graph-learning"]
 
 # Directories
 # BASE_DIR = Path(__file__).parent.parent.absolute()
@@ -27,6 +33,9 @@ DATA_DIR.mkdir(parents=True, exist_ok=True)
 MODEL_REGISTRY.mkdir(parents=True, exist_ok=True)
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 BLOB_STORE.mkdir(parents=True, exist_ok=True)
+
+# MLFlow model registry
+mlflow.set_tracking_uri("file://" + str(MODEL_REGISTRY.absolute()))
 
 # logger configuration
 logging_config = {
@@ -68,8 +77,6 @@ logging_config = {
         "propagate": True,
     },
 }
-
-# Use RichHandler for our console handler to get pretty formatting
 logging.config.dictConfig(logging_config)
 logger = logging.getLogger()
 logger.handlers[0] = RichHandler(markup=True)  # pretty formatting
@@ -81,20 +88,7 @@ logger.handlers[0] = RichHandler(markup=True)  # pretty formatting
 # logger.error("There's been a mistake with the process.")
 # logger.critical("There is something terribly wrong and process may terminate.")
 
-# mlflow
-STORES_DIR = Path(BASE_DIR, "stores")
-MODEL_REGISTRY = Path(STORES_DIR, "model")
-MODEL_REGISTRY.mkdir(parents=True, exist_ok=True)
-mlflow.set_tracking_uri("file://" + str(MODEL_REGISTRY.absolute()))
-
-# Assets
-PROJECTS_URL = (
-    "https://raw.githubusercontent.com/GokuMohandas/Made-With-ML/main/datasets/projects.csv"
-)
-TAGS_URL = "https://raw.githubusercontent.com/GokuMohandas/Made-With-ML/main/datasets/tags.csv"
-
-ACCEPTED_TAGS = ["natural-language-processing", "computer-vision", "mlops", "graph-learning"]
-
+# Misc
 STOPWORDS = [
     "i",
     "me",

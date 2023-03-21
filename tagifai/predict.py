@@ -1,3 +1,11 @@
+"""# **Two Predict Functions**
+
+> Preprocessing our dataset to use for training. Data preprocessing can be
+categorized into two types of processes: preparation and transformation.
+
+"""
+
+
 from typing import Dict, List
 
 import numpy as np

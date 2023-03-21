@@ -6,7 +6,7 @@ import numpy as np
 
 
 def load_dict(filepath: str) -> Dict:
-    """Load a dictionary from a JSON's filepath.
+    """Load from a JSON's filepath into a dictionary.
     Args:
         filepath (str): location of file.
     Returns:
@@ -18,7 +18,7 @@ def load_dict(filepath: str) -> Dict:
 
 
 def save_dict(d: Dict, filepath: str, cls=None, sortkeys: bool = False) -> None:
-    """Save a dictionary to a specific location.
+    """Save a dictionary to a json file at a specific location.
     Args:
         d (Dict): data to save.
         filepath (str): location of where to save the data.

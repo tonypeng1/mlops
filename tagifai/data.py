@@ -1,4 +1,17 @@
-# tagifai/data.py
+"""
+##  ⛩️  **Use `get_data_splits` to split data (in `train.train` module):**
+
+> * Training split (e.g., 70%) to train the model
+>> Here the model has access to both inputs and outputs to optimize its internal weights.
+> * Validation split (e.g., 15%) to determine model performance after each training loop
+> (epoch)
+>> Model does not use the outputs to optimize its weights but instead, the ouput is used
+>> to optimize training hyperparameters such as the learning rate, etc.
+> * Test split (e.g., 15%) to perform a one-time assessment of the model.
+>> Our best measure of how the model may behave on new, unseen data.
+
+"""
+
 import json
 import re
 from collections import Counter
@@ -184,7 +197,8 @@ class LabelEncoder:
 
     @classmethod
     def load(cls, fp: str):
-        """Load instance of LabelEncoder from file.
+        """Load from a JSON file into a dictionary and create an instance of LabelEncoder
+        from the unpacked key-value pair from the dictionary.
         Args:
             fp (str): JSON filepath to load from.
         Returns:

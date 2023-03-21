@@ -18,7 +18,7 @@ nav:
   - tests:
     - main: tests/main.md
     - data: tests/data.md
-theme: readthedocs
+theme: material
 plugins:
   - mkdocstrings
       # handlers:
@@ -26,5 +26,5 @@ plugins:
       #     setup_commands:
       #       - import sys
       #       - sys.path.append("tests")
-# watch:
-#   - .  # reload docs for any file changes
+watch:
+  - .  # reload docs for any file changes
