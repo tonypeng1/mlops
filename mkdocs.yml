@@ -18,7 +18,7 @@ nav:
   - tests:
     - main: tests/main.md
     - data: tests/data.md
-theme: material
+theme: readthedocs
 plugins:
   - mkdocstrings
       # handlers:
