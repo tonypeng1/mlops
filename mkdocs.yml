@@ -12,12 +12,12 @@ nav:
     - predict: tagifai/predict.md
     - train: tagifai/train.md
     - utils: tagifai/utils.md
-  - configuration:
-    - package: config/package.md
-    - config: config/config.md
-  - tests:
-    - main: tests/main.md
-    - data: tests/data.md
+  # - configuration:
+  #   - package: config/package.md
+  #   - config: config/config.md
+  # - tests:
+  #   - main: tests/main.md
+  #   - data: tests/data.md
 theme: readthedocs
 plugins:
   - mkdocstrings
