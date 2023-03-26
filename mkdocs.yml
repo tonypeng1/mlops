@@ -1,7 +1,8 @@
 # mkdocs.yml
-site_name: Made With ML
+site_name: A Language MLOps Project
 site_url: https://madewithml.com/
-repo_url: https://github.com/GokuMohandas/mlops-course/
+repo_url: https://github.com/tonypeng1/mlops
+edit_uri: ""  # remove "Edit from GitHub"
 nav:
   - Home: index.md
   - workflows:
