@@ -20,11 +20,11 @@ st.title("A Language MLOps Project")
 st.header("🎸 Introduction")
 st.markdown(
     """
-This is the product of what I learn from a fantastic open source course on end-to-end
+This is the product of what I learned from a fantastic open source course on end-to-end
 machine learning by Goku Mohandas. Name of the site is "Made With ML" ([site_url](https://madewithml.com/)) and the code repository
 is at [repo_url](https://github.com/GokuMohandas/mlops-course/). This streamlit site is based
 on my own repositoy ([site_url](https://github.com/tonypeng1/mlops)) with some added docstrings to help me
-understand the workflow.
+understand the workflow ([mkdocs_url](https://tonypeng1.github.io/mlops/)).
 
 This project aims to demonstrate an end-to-end MLOps process using a language model that
 categorizes a ML paper to either computer vision, mlops, natural language processing, or others.
@@ -35,11 +35,12 @@ st.header("🚀 Inference")
 st.markdown(
     """
 Want to see if this model correctly predicts the main topic of a machine learning paper? Please
-input below either the title of a paper or a combination of title and any sentences from abstract.
+input either the title of a paper or a combination of title and any sentences that describe the paper.
 """
 )
 text = st.text_input(
-    "Enter text to predict paper category:", "Deep Residual Learning for Image Recognition"
+    "Enter text to predict the topic category of a paper:",
+    "Deep Residual Learning for Image Recognition",
 )
 run_id = open(Path(config.CONFIG_DIR, "run_id.txt")).read()
 prediction = main.predict_tag(text=text, run_id=run_id)
