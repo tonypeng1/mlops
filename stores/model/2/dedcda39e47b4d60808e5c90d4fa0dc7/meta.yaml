@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/tony3/Library/CloudStorage/OneDrive-Personal/OneDrive
+  Documents/MadewithML/mlops/stores/model/2/dedcda39e47b4d60808e5c90d4fa0dc7/artifacts
+end_time: 1676178033385
+entry_point_name: ''
+experiment_id: '2'
+lifecycle_stage: active
+name: ''
+run_id: dedcda39e47b4d60808e5c90d4fa0dc7
+run_uuid: dedcda39e47b4d60808e5c90d4fa0dc7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1676178033351
+status: 3
+tags: []
+user_id: tony3

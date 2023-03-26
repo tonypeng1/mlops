@@ -1,0 +1,5 @@
+artifact_location: file:///Users/tony3/Library/CloudStorage/OneDrive-Personal/OneDrive
+  Documents/MadewithML/mlops/stores/model/3
+experiment_id: '3'
+lifecycle_stage: active
+name: baselines
