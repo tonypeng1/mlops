@@ -43,6 +43,7 @@ text = st.text_input(
     "Deep Residual Learning for Image Recognition",
 )
 run_id = open(Path(config.CONFIG_DIR, "run_id.txt")).read()
+os.system("dvc pull")
 prediction = main.predict_tag(text=text, run_id=run_id)
 st.write(prediction)
 
