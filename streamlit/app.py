@@ -55,6 +55,7 @@ and 15% for testing.
 )
 projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 os.system("pip install --force-reinstall -v 'fsspec==2022.11.0'")
+os.system("pip show fsspec")
 os.system("dvc pull")
 df = pd.read_csv(projects_fp)
 st.text(f"All raw data (count: {len(df)})")
