@@ -43,7 +43,6 @@ text = st.text_input(
     "Deep Residual Learning for Image Recognition",
 )
 run_id = open(Path(config.CONFIG_DIR, "run_id.txt")).read()
-os.system("dvc pull")
 prediction = main.predict_tag(text=text, run_id=run_id)
 st.write(prediction)
 
@@ -55,6 +54,8 @@ and 15% for testing.
 """
 )
 projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
+os.system("pip install --force-reinstall -v 'fsspec==2022.11.0'")
+os.system("dvc pull")
 df = pd.read_csv(projects_fp)
 st.text(f"All raw data (count: {len(df)})")
 st.write(df)
