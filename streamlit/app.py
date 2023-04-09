@@ -23,8 +23,8 @@ st.markdown(
 This is the product of what I learned from a fantastic open source course on end-to-end
 machine learning by Goku Mohandas. Name of the site is "Made With ML" ([site_url](https://madewithml.com/)) and the code repository
 is at [repo_url](https://github.com/GokuMohandas/mlops-course/). This streamlit site is based
-on my own repositoy ([site_url](https://github.com/tonypeng1/mlops)) with some added docstrings to help me
-understand the workflow ([mkdocs_url](https://tonypeng1.github.io/mlops/)).
+on my own repositoy ([site_url](https://github.com/tonypeng1/mlops)) with some added docstrings to explain the workflow
+([mkdocs_url](https://tonypeng1.github.io/mlops/)).
 
 This project aims to demonstrate an end-to-end MLOps process using a language model that
 categorizes a ML paper to either computer vision, mlops, natural language processing, or others.
@@ -54,8 +54,8 @@ and 15% for testing.
 """
 )
 projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
-os.system("pip install --force-reinstall -v 'fsspec==2022.11.0'")
-os.system("pip show fsspec")
+# os.system("pip install --force-reinstall -v 'fsspec==2022.11.0'")  # put fsspec==2022.11.0 into requirement.txt file
+# os.system("pip show fsspec")
 os.system("dvc pull")
 df = pd.read_csv(projects_fp)
 st.text(f"All raw data (count: {len(df)})")

@@ -47,6 +47,8 @@ test:
 
 .PHONY: dvc
 dvc:
+	pip install "dvc[gdrive]"
+# For google drive access
 	dvc add data/projects.csv
 	dvc add data/tags.csv
 	dvc add data/labeled_projects.csv

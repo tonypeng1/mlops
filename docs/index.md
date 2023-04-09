@@ -5,7 +5,7 @@
 <!-- - [config](config/config.md): configurations -->
 
 This is the product of what I learn from a fantastic open source course on end-to-end
-machine learning by Goku Mohandas "Made With ML". This site is based on my own repositoy with some added docstrings to help me understand the workflow.
+machine learning by Goku Mohandas "Made With ML". This site is based on my own repositoy with some added docstrings to explain the workflow.
 
 - Code: [Tonypeng1/mlops](https://github.com/tonypeng1/mlops)
 

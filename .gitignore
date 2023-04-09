@@ -1,6 +1,7 @@
 # Data
 logs/
 stores/blob
+stores/model/.trash/
 # data/
 
 # Packaging
