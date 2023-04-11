@@ -18,3 +18,4 @@ __pycache__/
 practice/
 mlruns
 great_expectation_try.ipynb
+pyproject.*
