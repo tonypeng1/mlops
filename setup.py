@@ -21,7 +21,7 @@ setup(
     author="Goku Mohandas",
     author_email="goku@madewithml.com",
     url="https://madewithml.com/",
-    python_requires=">=3.7",
+    python_requires=">=3.9",
     packages=find_namespace_packages(),
     install_requires=[required_packages],
     extras_require={
