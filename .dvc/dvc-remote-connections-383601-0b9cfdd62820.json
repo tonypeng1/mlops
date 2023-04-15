@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "dvc-remote-connections-383601",
+  "private_key_id": "0b9cfdd6282041ef9c7589434918f241b35aa38f",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5STC6622DBrol\nr4kQ5vt2okcp0eRtaeJ27bY9nHibjfb3A5DIA5VNqTVOZxH0Wpp8XtIW9Evqus++\nqIu5F8Ndm02fzdApJWX8vBamCnOSiWgIg2g2LxbY1m+lZVWrCDsryMhoYmWG5G6E\n8dqexxrMlzhJa6M0YlFLJTzAp5ADTUqkvCYgA3XdUPzMtHL36T4BtqJtqeqv1AOY\nLIqKjWTmIc6SPg4SjrTbZU4NpUSfix2DL7U6Go7XclbBKcF9op5BVhb0dvCK5iNN\n1YC8P222GwI5EE9CCjrDcTomvvfHF1Y2guCth/fMXTzg9WhhkXXOu2IWl8X3JNar\n81YutczTAgMBAAECggEAB7rD66hSozqunU/bWfco2mQer+Hvs5jNN8Tm618RsPuV\nJ+zgJ1fu7JR4gtLN7vGwrCuQfCCo4hv0+rExUwFoxwjpjhcZ7f1/abG3CCo7dAuD\naYeB23DPdTBM7At0LXRkc4kmwyQHtD7nVWh5hFIuDgbo9DcnUdIgLhBZnnffDCQl\nIZyfpPH7mnfLJg+IsH4kfIjOn3XxPGhnHcc3zoo2waebjOT5SQ2hsf6UkqAKREVm\nAwIc9WTZxLZP2n35Cct4R+eRbt/nr3QgqR8BOVeKsSgMmDybIqVuBlMfGLMpnLxi\ngUQYBbhGdyW0vKZ/jPaiUSUb6XVpkTB+bFgWvey38QKBgQDfbgKiZUd4+m/LAieW\n9ClXDZOMgRaYqV7j/FEo7qQaxwMY+KadGR0pH9tLBIeeqOs3cb+Fj2N6VTmszfmj\nBg4MX92k4d1wILAb2z/7cWBG0iNSBq9fhxQPy07NxOX449RAgYilos/SFXy6iIFu\nwRUkGpGSeMxcDTq7HqZf5FKcfQKBgQDUS7jVy2+3jbpHJ194Mk1jPQ1A+LH3ukWZ\n4U2n28TWZm+vX30E6pAwMR6m+PP9k8bTHZljllIIMJBBALARwSFkDs3nQ1omxZ30\nOp8KCRFWZF3GRJ5rljQXhBssihY0RQSbc5BNOYJiEd/1S/o62QY34YloYG7OPB70\nVXIgnNZfjwKBgHmWFDjrhImBP3TqJ0EufZCyAqljVjidctX+aOwtcYBg7H6aUZEM\nKaJHg76/KE5e/iGd9OtprGjWGBzBuifNE7gIM0WW5Dowj6WZGqhqekoP8Miieq0x\nhOlTaf7wN3XKBadU1lfM0esxZj7cKhNrX2XWT4G12v/88wkBFOj6BzrBAoGBAL6p\n3zAMDKKypAkBgImny78D9uJSOSu+3IGuSpsmEqtnxoif3t1KeQL/KoNVdXRZgyja\nHYfGWphGXVgz8O2RIZcGgMBhyhamRw0wlONjb3HCpEHMIOeJN/Gi0PD4d6asEc43\nRPNGYiYH3bclbG/rt9z6LvlSGlIYxsgz8VL+6L1bAoGAHfuFvQ1gPzuvDkrp654t\nddggJXhh+OTveXIsGKIS9r0zY3P97HnxqUTVNci1epb8Rtgvs7Krshk9ECbNGMDe\n9mkdA24F/gZ2pXR3+OYfvQSdguYcyXfjvoBQ7p0MfBRRxwjqPVLHk5PNqDDQpaUn\n4FMduDnJjk+S/JJ+R67jAWI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "my-dvc-project@dvc-remote-connections-383601.iam.gserviceaccount.com",
+  "client_id": "110233397508474469110",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/my-dvc-project%40dvc-remote-connections-383601.iam.gserviceaccount.com"
+}
