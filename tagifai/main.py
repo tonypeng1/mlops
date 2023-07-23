@@ -16,7 +16,7 @@
 > 4. Initiate an instance of `MLflowCallback` (from `optuna.integration.mlflow`) to track relevant
 > information of Optuna.
 >
-> 5. Start optimization using `study.optimize()` by calling `train.object` for `n_trial` times with `trial`
+> 5. Start optimization using `study.optimize()` by calling `train.objective` for `n_trial` times with `trial`
 > (= `optuna.trial._trial.Trial` type) and the current args as input.
 >
 > 6. (in `train.objective`) Set the parameters to tune using, e.g., `trial.suggest_loguniform(
@@ -28,7 +28,7 @@
 > `args.num_epochs` = 100) uses `trail.report()` to report `val_loss` and `epoch`, which are used to
 > determine whether this `trail` should be pruned.
 >
-> 9. Return artifacts (`args`, `label_encoder`, l`vectorizer`, `model`, and `performance`).
+> 9. Return artifacts (`args`, `label_encoder`, `vectorizer`, `model`, and `performance`).
 >
 > 10. (in `train.objective()`) Use, e.g., `trail.set_user_attr(precision, artifacts[performance]
 > [overall][precision]`) to set user attributes to the trial.
@@ -78,7 +78,7 @@
 > metrics of overall precision, recall, and f1 using `mlflow.log_metrics()`.
 >
 > 8. Save the parameters using `mlflow.log_params(Dict[str, Any])` after converting the Namespace args
-> by returning the `__dict__` method of Namespace) to dictionary using `vars()`.
+> (by returning the `__dict__` method of Namespace) to dictionary using `vars()`.
 >
 > 9. Use `mlflow.log_artifacts(local_dir: str)` to log all the contents of a local directory as artifacts
 > of this run. Here we use `with tempfile.TemporaryDirectory() as dp:` to create a temporary directory to

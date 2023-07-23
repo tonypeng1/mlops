@@ -1,17 +1,34 @@
 # Data
 logs/
-stores/blob
-stores/model/.trash/
+stores/
+# stores/blob
+# stores/model/.trash/
 # data/
 
-# Packaging
-venv/
+# VSCode
+.vscode/
+.idea
+
+# IPython
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Distribution / packaging
+build/
 *.egg-info/
 __pycache__/
+
+# Environment
+venv/
 
 # Unit test / coverage reports
 .coverage
 .coverage.*
+
+# Airflow
+airflow/airflow.db
 
 # Misc
 .DS_Store

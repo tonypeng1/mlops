@@ -7,7 +7,7 @@
 > `random.random()` or `np.random.rand()` is run.
 >
 > 2. Use `df.sample(fract=1).reset_index(drop=True)` (randomly sample rows from a Panda dataframe)
-> to suffle 100% of the rows of `df` (do not keep the old index).
+> to shuffle 100% of the rows of `df` (do not keep the old index).
 >
 > 3. (in `data.preprocess()`) First preprocess the `df`:
 >> 1. Feature engineering: Merge column `title` and `description` to form a new column `text`.
