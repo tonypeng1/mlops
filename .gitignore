@@ -2,9 +2,15 @@
 logs/
 stores/blob
 stores/model/.trash/
+stores/model
+
 # data/
 
-# Packaging
+# Distribution / packaging
+build/
+*.egg-info/
+__pycache__/
+
 venv/
 *.egg-info/
 __pycache__/
