@@ -62,6 +62,14 @@ projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 # os.system("pip show fsspec")
 # os.system("pip install dvc-gdrive")
 os.system("dvc pull")
+if os.system("dvc pull") != 0:
+    st.text("dvc pull failed")
+st.text(projects_fp)
+if os.path.isfile("/mount/src/mlops/data/labeled_projects.csv"):
+    # if os.path.isfile(projects_fp):
+    st.text("File exists.")
+else:
+    st.text("File not found.")
 df = pd.read_csv(projects_fp)
 st.text(f"All raw data (count: {len(df)})")
 st.write(df)
