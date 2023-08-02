@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 
 import pandas as pd
+import pipdeptree
 
 import streamlit as st
 
@@ -70,6 +71,12 @@ if os.path.isfile("/mount/src/mlops/data/labeled_projects.csv"):
     st.text("File exists.")
 else:
     st.text("File not found.")
+os.system("pipdeptree --packages dvc --warn > dependency.txt")
+with open("dependency.txt") as f:
+    lines = f.readlines()
+    for line in lines:
+        st.text(line)
+
 df = pd.read_csv(projects_fp)
 st.text(f"All raw data (count: {len(df)})")
 st.write(df)
