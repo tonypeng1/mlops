@@ -72,6 +72,13 @@ if os.path.isfile("/mount/src/mlops/data/labeled_projects.csv"):
 else:
     st.text("File not found.")
 os.system("pipdeptree --packages dvc --warn > dependency.txt")
+if os.system("pipdeptree --packages dvc --warn > dependency.txt") != 0:
+    st.text("pipdeptree failed")
+if os.path.isfile("/mount/src/mlops/dependency.txt"):
+    # if os.path.isfile(projects_fp):
+    st.text("dependency.txt file exists.")
+else:
+    st.text("dependency.txt file not found.")
 with open("dependency.txt") as f:
     lines = f.readlines()
     for line in lines:
