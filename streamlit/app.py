@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 import pandas as pd
@@ -86,17 +87,52 @@ projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 #     for line in lines:
 #         st.text(line)
 
-# Path to the shell script
-script_path = "./streamlit/date_script.sh"
+# # Create a temporary file
+# temp = tempfile.NamedTemporaryFile(delete=False)
 
-# Run the shell script and capture the output
-result = subprocess.run([script_path], capture_output=True, text=True)
+# # Run the shell command and redirect the output to the temporary file
+# os.system("ls > " + temp.name)
 
-# Display the output in the Streamlit app
-if result.stderr:
-    st.write("Error:", result.stderr)
-else:
-    st.write("Output:", result.stdout)
+# # Now you can read the output from the file
+# with open(temp.name, 'r') as file:
+#     output = file.read()
+
+# print(output)
+
+# # Don't forget to remove the temporary file when you're done with it
+# os.unlink(temp.name)
+
+# Create a temporary file
+with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
+    # Write a simple bash command to the file
+    temp.write("#!/bin/bash\n")
+    temp.write("echo Hello, world!")
+    temp_filename = temp.name
+
+# Make the temporary file executable
+os.chmod(temp_filename, 0o755)
+
+# Execute the script
+result = subprocess.run([temp_filename], capture_output=True, text=True)
+
+# Display the output
+st.write(result.stdout)
+
+# Clean up the temporary file
+os.remove(temp_filename)
+
+
+# # Path to the shell script
+# script_path = "./streamlit/date_script.sh"
+
+# # Run the shell script and capture the output
+# result = subprocess.run([script_path], capture_output=True, text=True)
+
+# # Display the output in the Streamlit app
+# if result.stderr:
+#     st.write("Error:", result.stderr)
+# else:
+#     st.write("Output:", result.stdout)
 
 df = pd.read_csv(projects_fp)
 st.text(f"All raw data (count: {len(df)})")
