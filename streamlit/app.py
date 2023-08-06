@@ -106,7 +106,7 @@ projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
     # Write a simple bash command to the file
     temp.write("#!/bin/bash\n")
-    temp.write("echo Hello, world!")
+    temp.write("pipdeptree --packages dvc --warn")
     temp_filename = temp.name
 
 # Make the temporary file executable
@@ -115,8 +115,20 @@ os.chmod(temp_filename, 0o755)
 # Execute the script
 result = subprocess.run([temp_filename], capture_output=True, text=True)
 
-# Display the output
-st.write(result.stdout)
+# # Display the output
+# st.write(result.stdout)
+
+# Split the output into lines
+lines = result.stdout.splitlines()
+
+# Print each line
+for line in lines:
+    st.text(line)
+
+# with open("dependency.txt") as f:
+#     lines = f.readlines()
+#     for line in lines:
+#         st.text(line)
 
 # Clean up the temporary file
 os.remove(temp_filename)
