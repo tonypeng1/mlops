@@ -106,7 +106,7 @@ projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
     # Write a simple bash command to the file
     temp.write("#!/bin/bash\n")
-    temp.write("ls")
+    temp.write("cat requirements.txt")
     temp_filename = temp.name
 
 # Make the temporary file executable
