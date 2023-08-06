@@ -60,8 +60,6 @@ and 15% for testing.
 """
 )
 projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
-st.write(config.DATA_DIR)
-
 
 # Create a temporary file
 with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
