@@ -87,7 +87,7 @@ projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 #         st.text(line)
 
 # Path to the shell script
-script_path = "./date_script.sh"
+script_path = "./streamlit/date_script.sh"
 
 # Run the shell script and capture the output
 result = subprocess.run([script_path], capture_output=True, text=True)
