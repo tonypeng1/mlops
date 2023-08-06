@@ -1,4 +1,5 @@
 import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -62,27 +63,40 @@ projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 # os.system("pip install --force-reinstall -v 'fsspec==2022.11.0'")  # put fsspec==2022.11.0 into requirement.txt file
 # os.system("pip show fsspec")
 # os.system("pip install dvc-gdrive")
-os.system("dvc pull")
-if os.system("dvc pull") != 0:
-    st.text("dvc pull failed")
-st.text(projects_fp)
-if os.path.isfile("/mount/src/mlops/data/labeled_projects.csv"):
-    # if os.path.isfile(projects_fp):
-    st.text("File exists.")
+
+# os.system("dvc pull")
+# if os.system("dvc pull") != 0:
+#     st.text("dvc pull failed")
+# st.text(projects_fp)
+# if os.path.isfile("/mount/src/mlops/data/labeled_projects.csv"):
+#     # if os.path.isfile(projects_fp):
+#     st.text("File exists.")
+# else:
+#     st.text("File not found.")
+# os.system("pipdeptree --packages dvc --warn > dependency.txt")
+# if os.system("pipdeptree --packages dvc --warn > dependency.txt") != 0:
+#     st.text("pipdeptree failed")
+# if os.path.isfile("/mount/src/mlops/dependency.txt"):
+#     # if os.path.isfile(projects_fp):
+#     st.text("dependency.txt file exists.")
+# else:
+#     st.text("dependency.txt file not found.")
+# with open("dependency.txt") as f:
+#     lines = f.readlines()
+#     for line in lines:
+#         st.text(line)
+
+# Path to the shell script
+script_path = "./date_script.sh"
+
+# Run the shell script and capture the output
+result = subprocess.run([script_path], capture_output=True, text=True)
+
+# Display the output in the Streamlit app
+if result.stderr:
+    st.write("Error:", result.stderr)
 else:
-    st.text("File not found.")
-os.system("pipdeptree --packages dvc --warn > dependency.txt")
-if os.system("pipdeptree --packages dvc --warn > dependency.txt") != 0:
-    st.text("pipdeptree failed")
-if os.path.isfile("/mount/src/mlops/dependency.txt"):
-    # if os.path.isfile(projects_fp):
-    st.text("dependency.txt file exists.")
-else:
-    st.text("dependency.txt file not found.")
-with open("dependency.txt") as f:
-    lines = f.readlines()
-    for line in lines:
-        st.text(line)
+    st.write("Output:", result.stdout)
 
 df = pd.read_csv(projects_fp)
 st.text(f"All raw data (count: {len(df)})")
