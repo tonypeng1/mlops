@@ -61,6 +61,7 @@ and 15% for testing.
 """
 )
 projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
+st.write(config.CONFIG_DIR)
 # os.system("pip install --force-reinstall -v 'fsspec==2022.11.0'")  # put fsspec==2022.11.0 into requirement.txt file
 # os.system("pip show fsspec")
 # os.system("pip install dvc-gdrive")
@@ -106,7 +107,9 @@ projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
     # Write a simple bash command to the file
     temp.write("#!/bin/bash\n")
-    temp.write("cat dependency.txt")
+    temp.write("ls data\n")
+    temp.write("dvc pull -v\n")
+    temp.write("ls data\n")
     temp_filename = temp.name
 
 # Make the temporary file executable
