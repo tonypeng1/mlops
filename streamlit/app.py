@@ -52,14 +52,14 @@ run_id = open(Path(config.CONFIG_DIR, "run_id.txt")).read()
 prediction = main.predict_tag(text=text, run_id=run_id)
 st.write(prediction)
 
-st.header("🔢 Information: Data")
-st.markdown(
-    """
-Raw data is listed in the table below, where 70% is used for training, 15% for validation,
-and 15% for testing.
-"""
-)
-projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
+# st.header("🔢 Information: Data")
+# st.markdown(
+#     """
+# Raw data is listed in the table below, where 70% is used for training, 15% for validation,
+# and 15% for testing.
+# """
+# )
+# projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 
 # Create a temporary file
 with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
@@ -80,9 +80,9 @@ st.write(result.stdout)
 # Remove the temp file
 os.remove(temp_filename)
 
-df = pd.read_csv(projects_fp)
-st.text(f"All raw data (count: {len(df)})")
-st.write(df)
+# df = pd.read_csv(projects_fp)
+# st.text(f"All raw data (count: {len(df)})")
+# st.write(df)
 
 st.header("📊 Information: Model Performance")
 st.markdown(
