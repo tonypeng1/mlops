@@ -23,7 +23,7 @@ setup(
     url="https://madewithml.com/",
     python_requires=">=3.9",
     packages=find_namespace_packages(),
-    install_requires=[required_packages],
+    install_requires=required_packages,
     extras_require={
         "dev": docs_packages + style_packages + test_packages + ["pre-commit==2.19.0"],
         "docs": docs_packages,
