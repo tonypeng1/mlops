@@ -76,11 +76,16 @@ with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
 # Make the temporary file executable
 os.chmod(temp_filename, 0o755)
 
-# Execute the script
-result = subprocess.run([temp_filename], capture_output=True, text=True)
+# # Execute the script
+# result = subprocess.run([temp_filename], capture_output=True, text=True)
 
-# Display the output
-st.write(result.stdout)
+# # Display the output
+# st.write(result.stdout)
+
+result = subprocess.Popen(["bash", temp_filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+stdout, stderr = result.communicate()
+st.write("Output:", stdout.decode())
+st.write("Error:", stderr.decode())
 
 # Remove the temp file
 os.remove(temp_filename)
