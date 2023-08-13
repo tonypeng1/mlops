@@ -67,11 +67,16 @@ with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
     temp.write("#!/bin/bash\n")
     # temp.write("ls -a\n")
     temp.write("which python\n")
-    temp.write("which numpy\n")
-    temp.write("python -m pip show numpy\n")
-    temp.write("which dvc\n")
-    temp.write("python -m pip show dvc\n")
-    temp.write("dvc doctor\n")
+    # temp.write("which dvc\n")
+    # temp.write("python -m pip show dvc\n")
+    temp.write("echo $PATH\n")
+    temp.write("echo $SHELL\n")
+    temp.write("echo $VIRTUAL_ENV\n")
+    temp.write("echo $USER\n")
+    temp.write("hostname\n")
+    temp.write("pwd\n")
+    # temp.write("dvc doctor\n")
+    temp.write("/usr/local/bin/dvc doctor\n")
     # temp.write("dvc pull\n")
     temp_filename = temp.name
 
@@ -86,8 +91,17 @@ os.chmod(temp_filename, 0o755)
 
 result = subprocess.Popen(["bash", temp_filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 stdout, stderr = result.communicate()
-st.write("Output:", stdout.decode())
-st.write("Error:", stderr.decode())
+
+st.write("Output:")
+for line in stdout.decode().split("\n"):
+    st.write(line)
+
+st.write("Error:")
+for line in stderr.decode().split("\n"):
+    st.write(line)
+
+# st.write("Output:", stdout.decode())
+# st.write("Error:", stderr.decode())
 
 # Remove the temp file
 os.remove(temp_filename)
