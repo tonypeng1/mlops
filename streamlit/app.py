@@ -65,7 +65,10 @@ projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
     # Write a simple bash command to the file
     temp.write("#!/bin/bash\n")
-    temp.write("ls\n")
+    # temp.write("ls -a\n")
+    temp.write("which python\n")
+    temp.write("which dvc\n")
+    temp.write("python -m pip show dvc\n")
     temp.write("dvc doctor\n")
     temp.write("dvc pull\n")
     temp_filename = temp.name
