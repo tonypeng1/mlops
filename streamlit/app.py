@@ -67,10 +67,12 @@ with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
     temp.write("#!/bin/bash\n")
     # temp.write("ls -a\n")
     temp.write("which python\n")
+    temp.write("which numpy\n")
+    temp.write("python -m pip show numpy\n")
     temp.write("which dvc\n")
     temp.write("python -m pip show dvc\n")
     temp.write("dvc doctor\n")
-    temp.write("dvc pull\n")
+    # temp.write("dvc pull\n")
     temp_filename = temp.name
 
 # Make the temporary file executable
