@@ -57,7 +57,7 @@ st.header("🔢 Information: Data")
 st.markdown(
     """
 Raw data is listed in the table below, where 70% is used for training, 15% for validation,
-and 15% for testing.
+and 15% for testing. Data in the table below is pulled real-time from Google Drive.
 """
 )
 projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
@@ -69,10 +69,10 @@ def pull_data_with_dvc():
     cmd = [venv_path, "-m", "dvc", "pull"]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode == 0:
-        st.write("Data pulled successfully!")
-        st.write(result.stdout)
+        st.write("(🔢 Data pulled successfully!)")
+        # st.write(result.stdout)
     else:
-        st.write("Error pulling data!")
+        st.write("Error pulling data from Google Drive!")
         st.write(result.stderr)
 
 
