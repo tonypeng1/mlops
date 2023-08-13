@@ -15,6 +15,8 @@ sys.path.append(parentdir)
 from config import config
 from tagifai import main, utils
 
+venv_path = sys.executable
+
 # Title
 st.title("A Language MLOps Project")
 
@@ -67,8 +69,8 @@ with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
     temp.write("#!/bin/bash\n")
     # temp.write("ls -a\n")
     temp.write("which python\n")
-    temp.write("which streamlit\n")
-    temp.write("which mlflow\n")
+    # temp.write("which streamlit\n")
+    # temp.write("which mlflow\n")
     # temp.write("which dvc\n")
     # temp.write("python -m pip show dvc\n")
     temp.write("echo $PATH\n")
@@ -77,7 +79,8 @@ with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
     temp.write("echo $USER\n")
     temp.write("hostname\n")
     temp.write("pwd\n")
-    temp.write("pwd | ls -al\n")
+    temp.write("ls -al /usr/local/bin\n")
+    temp.write("ls -al /usr/local/bin/python\n")
     # temp.write("dvc doctor\n")
     temp.write("/usr/local/bin/dvc doctor\n")
     # temp.write("dvc pull\n")
