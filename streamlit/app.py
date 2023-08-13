@@ -1,7 +1,8 @@
 import os
 import subprocess
 import sys
-import tempfile
+
+# import tempfile
 from pathlib import Path
 
 import pandas as pd
@@ -14,8 +15,6 @@ sys.path.append(parentdir)
 
 from config import config
 from tagifai import main, utils
-
-venv_path = sys.executable
 
 # Title
 st.title("A Language MLOps Project")
@@ -63,31 +62,48 @@ and 15% for testing.
 )
 projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 
-# Create a temporary file
-with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
-    # Write a simple bash command to the file
-    temp.write("#!/bin/bash\n")
-    # temp.write("ls -a\n")
-    temp.write("which python\n")
-    # temp.write("which streamlit\n")
-    # temp.write("which mlflow\n")
-    # temp.write("which dvc\n")
-    # temp.write("python -m pip show dvc\n")
-    temp.write("echo $PATH\n")
-    temp.write("echo $SHELL\n")
-    temp.write("echo $VIRTUAL_ENV\n")
-    temp.write("echo $USER\n")
-    temp.write("hostname\n")
-    temp.write("pwd\n")
-    temp.write("ls -al /usr/local/bin\n")
-    temp.write("ls -al /usr/local/bin/python\n")
-    # temp.write("dvc doctor\n")
-    temp.write("/usr/local/bin/dvc doctor\n")
-    # temp.write("dvc pull\n")
-    temp_filename = temp.name
+venv_path = sys.executable
 
-# Make the temporary file executable
-os.chmod(temp_filename, 0o755)
+
+def pull_data_with_dvc():
+    cmd = [venv_path, "-m", "dvc", "pull"]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode == 0:
+        st.write("Data pulled successfully!")
+        st.write(result.stdout)
+    else:
+        st.write("Error pulling data!")
+        st.write(result.stderr)
+
+
+# Use this function somewhere in your Streamlit app.
+pull_data_with_dvc()
+
+# # Create a temporary file
+# with tempfile.NamedTemporaryFile("w", delete=False, suffix=".sh") as temp:
+#     # Write a simple bash command to the file
+#     temp.write("#!/bin/bash\n")
+#     # temp.write("ls -a\n")
+#     temp.write("which python\n")
+#     # temp.write("which streamlit\n")
+#     # temp.write("which mlflow\n")
+#     # temp.write("which dvc\n")
+#     # temp.write("python -m pip show dvc\n")
+#     temp.write("echo $PATH\n")
+#     temp.write("echo $SHELL\n")
+#     temp.write("echo $VIRTUAL_ENV\n")
+#     temp.write("echo $USER\n")
+#     temp.write("hostname\n")
+#     temp.write("pwd\n")
+#     temp.write("ls -al /usr/local/bin\n")
+#     temp.write("ls -al /usr/local/bin/python\n")
+#     # temp.write("dvc doctor\n")
+#     temp.write("/usr/local/bin/dvc doctor\n")
+#     # temp.write("dvc pull\n")
+#     temp_filename = temp.name
+
+# # Make the temporary file executable
+# os.chmod(temp_filename, 0o755)
 
 # # Execute the script
 # result = subprocess.run([temp_filename], capture_output=True, text=True)
@@ -95,22 +111,22 @@ os.chmod(temp_filename, 0o755)
 # # Display the output
 # st.write(result.stdout)
 
-result = subprocess.Popen(["bash", temp_filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-stdout, stderr = result.communicate()
+# result = subprocess.Popen(["bash", temp_filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+# stdout, stderr = result.communicate()
 
-st.write("Output:")
-for line in stdout.decode().split("\n"):
-    st.write(line)
+# st.write("Output:")
+# for line in stdout.decode().split("\n"):
+#     st.write(line)
 
-st.write("Error:")
-for line in stderr.decode().split("\n"):
-    st.write(line)
+# st.write("Error:")
+# for line in stderr.decode().split("\n"):
+#     st.write(line)
 
 # st.write("Output:", stdout.decode())
 # st.write("Error:", stderr.decode())
 
-# Remove the temp file
-os.remove(temp_filename)
+# # Remove the temp file
+# os.remove(temp_filename)
 
 df = pd.read_csv(projects_fp)
 st.text(f"All raw data (count: {len(df)})")
