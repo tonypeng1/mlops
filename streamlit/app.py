@@ -64,6 +64,7 @@ projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 
 venv_path = sys.executable
 
+
 def pull_data_with_dvc():
     cmd = [venv_path, "-m", "dvc", "pull"]
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -73,6 +74,7 @@ def pull_data_with_dvc():
     else:
         st.write("Error pulling data from Google Drive!")
         st.write(result.stderr)
+
 
 # Use this function somewhere in your Streamlit app.
 pull_data_with_dvc()
