@@ -66,10 +66,10 @@ venv_path = sys.executable
 
 
 def pull_data_with_dvc():
-    cmd = [venv_path, "-m", "dvc", "pull"]
+    cmd = ["dvc", "pull"]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode == 0:
-        st.write("(🔢 Data pulled successfully!)")
+        st.write("(🎉 Data pulled successfully!)")
         # st.write(result.stdout)
     else:
         st.write("Error pulling data from Google Drive!")
