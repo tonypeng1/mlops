@@ -64,9 +64,8 @@ projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 
 venv_path = sys.executable
 
-
 def pull_data_with_dvc():
-    cmd = ["dvc", "pull"]
+    cmd = ["which", "dvc"]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode == 0:
         st.write("(🎉 Data pulled successfully!)")
