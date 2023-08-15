@@ -66,14 +66,24 @@ venv_path = sys.executable
 
 def pull_data_with_dvc():
     cmd = ["which", "dvc"]
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    # cmd = [venv_path, "-m", "dvc", "pull"]
+    # result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = result.communicate()
+
     if result.returncode == 0:
         st.write("(🎉 Data pulled successfully!)")
-        # st.write(result.stdout)
+        for line in stdout.decode().split("\n"):
+            st.write(line)
     else:
         st.write("Error pulling data from Google Drive!")
-        st.write(result.stderr)
+        for line in stderr.decode().split("\n"):
+            st.write(line)
 
+    #     # st.write(result.stdout)
+    # else:
+    #     st.write("Error pulling data from Google Drive!")
+    #     st.write(result.stderr)
 
 # Use this function somewhere in your Streamlit app.
 pull_data_with_dvc()
