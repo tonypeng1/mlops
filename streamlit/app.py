@@ -5,6 +5,7 @@ import sys
 # import tempfile
 from pathlib import Path
 
+import git
 import pandas as pd
 
 import streamlit as st
