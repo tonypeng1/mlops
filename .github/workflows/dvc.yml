@@ -29,3 +29,9 @@ jobs:
 
     - name: DVC Pull
       run: dvc pull
+
+    - name: Upload data as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: pulled-data
+        path: data/
