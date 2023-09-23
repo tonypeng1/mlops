@@ -66,7 +66,7 @@ GDRIVE_CLIENT_SECRET = st.secrets["GDRIVE_CLIENT_SECRET"]
 GDRIVE_SERVICE_ACCOUNT_JSON = st.secrets["GDRIVE_SERVICE_ACCOUNT_JSON_FILE_PATH"]
 
 with open("dvc_remote_connections.json", "w") as f:
-    json.dump(GDRIVE_SERVICE_ACCOUNT_JSON, f)
+    json.dump(dict(GDRIVE_SERVICE_ACCOUNT_JSON), f)
 
 venv_path = sys.executable
 
