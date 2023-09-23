@@ -4,10 +4,7 @@ import sys
 
 # import tempfile
 from pathlib import Path
-
-import git
 import pandas as pd
-
 import streamlit as st
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
@@ -63,10 +60,23 @@ and 15% for testing. Data in the table below is pulled real-time from Google Dri
 )
 projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
 
+GDRIVE_CLIENT_ID = st.secrets["GDRIVE_CLIENT_ID"]
+GDRIVE_CLIENT_SECRET = st.secrets["GDRIVE_CLIENT_SECRET"]
+GDRIVE_SERVICE_ACCOUNT_JSON = st.secrets["GDRIVE_SERVICE_ACCOUNT_JSON_FILE_PATH"]
+
+with open("dvc_remote_connections.json", "w") as f:
+    f.write(GDRIVE_SERVICE_ACCOUNT_JSON)
+
 venv_path = sys.executable
 
-
 def pull_data_with_dvc():
+    cmd = [venv_path, "-m", "dvc", "remote", "modify", "storage", "gdrive_client_id", GDRIVE_CLIENT_ID]
+    subprocess.run(cmd)
+    cmd = [venv_path, "-m", "dvc", "remote", "modify", "storage", "gdrive_client_secret", GDRIVE_CLIENT_SECRET]
+    subprocess.run(cmd)
+    cmd = [venv_path, "-m", "dvc", "remote", "modify", "storage", "gdrive_service_account_json_file_path", "dvc_remote_connections.json"]
+    subprocess.run(cmd)
+
     cmd = [venv_path, "-m", "dvc", "pull"]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode == 0:
