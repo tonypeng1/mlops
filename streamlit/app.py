@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import json
 
 # import tempfile
 from pathlib import Path
@@ -65,7 +66,7 @@ GDRIVE_CLIENT_SECRET = st.secrets["GDRIVE_CLIENT_SECRET"]
 GDRIVE_SERVICE_ACCOUNT_JSON = st.secrets["GDRIVE_SERVICE_ACCOUNT_JSON_FILE_PATH"]
 
 with open("dvc_remote_connections.json", "w") as f:
-    f.write(GDRIVE_SERVICE_ACCOUNT_JSON)
+    json.dump(GDRIVE_SERVICE_ACCOUNT_JSON, f)
 
 venv_path = sys.executable
 
