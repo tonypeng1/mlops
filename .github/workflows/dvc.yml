@@ -3,7 +3,7 @@ name: DVC Operations
 on:
   push:
     branches:
-      - dev-secret
+      - main
 
 jobs:
   dvc:

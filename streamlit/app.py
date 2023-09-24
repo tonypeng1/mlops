@@ -1,11 +1,13 @@
+import json
 import os
 import subprocess
 import sys
-import json
 
 # import tempfile
 from pathlib import Path
+
 import pandas as pd
+
 import streamlit as st
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
@@ -70,12 +72,40 @@ with open("dvc_remote_connections.json", "w") as f:
 
 venv_path = sys.executable
 
+
 def pull_data_with_dvc():
-    cmd = [venv_path, "-m", "dvc", "remote", "modify", "storage", "gdrive_client_id", GDRIVE_CLIENT_ID]
+    cmd = [
+        venv_path,
+        "-m",
+        "dvc",
+        "remote",
+        "modify",
+        "storage",
+        "gdrive_client_id",
+        GDRIVE_CLIENT_ID,
+    ]
     subprocess.run(cmd)
-    cmd = [venv_path, "-m", "dvc", "remote", "modify", "storage", "gdrive_client_secret", GDRIVE_CLIENT_SECRET]
+    cmd = [
+        venv_path,
+        "-m",
+        "dvc",
+        "remote",
+        "modify",
+        "storage",
+        "gdrive_client_secret",
+        GDRIVE_CLIENT_SECRET,
+    ]
     subprocess.run(cmd)
-    cmd = [venv_path, "-m", "dvc", "remote", "modify", "storage", "gdrive_service_account_json_file_path", "dvc_remote_connections.json"]
+    cmd = [
+        venv_path,
+        "-m",
+        "dvc",
+        "remote",
+        "modify",
+        "storage",
+        "gdrive_service_account_json_file_path",
+        "dvc_remote_connections.json",
+    ]
     subprocess.run(cmd)
 
     cmd = [venv_path, "-m", "dvc", "pull"]
