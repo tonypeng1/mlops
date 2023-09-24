@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://madewithml.com/tagifai/main/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>main - A Language MLOps Project</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "main";
+        var mkdocs_page_input_path = "tagifai/main.md";
+        var mkdocs_page_url = "/tagifai/main/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> A Language MLOps Project
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">workflows</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">main</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">tagifai</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../data/">data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../evaluate/">evaluate</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../predict/">predict</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../train/">train</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../utils/">utils</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">A Language MLOps Project</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>workflows &raquo;</li><li>main</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div class="doc doc-object doc-module">
+
+<a id="tagifai.main"></a>
+    <div class="doc doc-contents first">
+
+      <h2 id="tagifai.main--core-operations"><strong>Core Operations</strong></h2>
+<h3 id="tagifai.main--1-in-optimize-function">1. 🏝️  <strong>In <code>optimize</code> function:</strong></h3>
+<h4 id="tagifai.main--to-run-via-cli-type-python-tagifaimainpy-optimize">(To run via CLI: type <code>python tagifai/main.py optimize</code>)</h4>
+<blockquote>
+<ol>
+<li>
+<p>Load the argumrnt json file into a Python dictionary, followed by unpacking it as keyword arguments
+and passing it to the <code>Namespace</code> constructor (from <code>argparse</code> library), which allows you to access
+the elements of the dictionary using dot notation.</p>
+</li>
+<li>
+<p>Set <code>optuna</code> pruner to <code>MedianPruner</code>, which stops a trial if the trial's best intermediate result
+is worse than median of intermediate results of previous trials at the same step.</p>
+</li>
+<li>
+<p>Initiate a <code>optuna</code> study using the default study_name of "optimization".</p>
+</li>
+<li>
+<p>Initiate an instance of <code>MLflowCallback</code> (from <code>optuna.integration.mlflow</code>) to track relevant
+information of Optuna.</p>
+</li>
+<li>
+<p>Start optimization using <code>study.optimize()</code> by calling <code>train.object</code> for <code>n_trial</code> times with <code>trial</code>
+(= <code>optuna.trial._trial.Trial</code> type) and the current args as input.</p>
+</li>
+<li>
+<p>(in <code>train.objective</code>) Set the parameters to tune using, e.g., <code>trial.suggest_loguniform(
+learning_rate, 1e-2, 1e0)</code> to suggest values for this continuous parameter.</p>
+</li>
+<li>
+<p>Pass <code>df</code>, new args, and <code>trial</code> to <code>train.train()</code>.</p>
+</li>
+<li>
+<p>(in <code>train.train()</code>) Use the new args to train, in each of the training epoch (from 1 to
+<code>args.num_epochs</code> = 100) uses <code>trail.report()</code> to report <code>val_loss</code> and <code>epoch</code>, which are used to
+determine whether this <code>trail</code> should be pruned.</p>
+</li>
+<li>
+<p>Return artifacts (<code>args</code>, <code>label_encoder</code>, l<code>vectorizer</code>, <code>model</code>, and <code>performance</code>).</p>
+</li>
+<li>
+<p>(in <code>train.objective()</code>) Use, e.g., <code>trail.set_user_attr(precision, artifacts[performance]
+[overall][precision]</code>) to set user attributes to the trial.</p>
+</li>
+<li>
+<p>Retrun <code>f1</code>.</p>
+</li>
+<li>
+<p>(in <code>main.optimize()</code>), in <code>study.optimize()</code> creates (if not already exists) a new MLflow
+experiment with the name <code>optimization</code>.</p>
+</li>
+<li>
+<p>Go to Step 6 and continue to the next trial.</p>
+</li>
+<li>
+<p>After <code>num_trails</code> is completed, merge the dictionary of <code>study.best_trail.params</code> into the
+starting args <code>args.__dict__</code> using <code>args = {**args.__dict__, **study.best_trial.params}</code>. Overide
+the values if the starting args have keys of the same names.</p>
+</li>
+<li>
+<p>Save the optimized args into the <code>config/args.json</code> file location.</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="tagifai.main--2-in-class-labelencoder">2. ⛺  <strong>In class <code>LabelEncoder</code></strong></h3>
+<blockquote>
+<ol>
+<li>
+<p><code>fit</code> raw labels to get a class instance with attributes <code>class_to_index</code> and
+<code>index_to_class</code> (in <code>train.train</code> module).</p>
+</li>
+<li>
+<p>Then <code>encode</code> raw labels for further training (in <code>train.train</code> module).</p>
+</li>
+<li>
+<p>After traing is completed, <code>save</code> <code>class_to_index</code> to MLflow folder stores/model/1/
+5457....0020/artifacts/label_encoder.json (in <code>main.train_model</code> module).</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="tagifai.main--3-in-train_model">3. ⛵  <strong>In <code>train_model</code></strong></h3>
+<h4 id="tagifai.main--to-run-via-cli-type-python-tagifaimainpy-train-model">(To run via CLI: type <code>python tagifai/main.py train-model</code>)</h4>
+<blockquote>
+<ol>
+<li>
+<p>Load the same raw data <code>df</code>.</p>
+</li>
+<li>
+<p>Load the optimized args.json file as a Namespace object.</p>
+</li>
+<li>
+<p>Set the MLflow experiment name to <code>baseline</code> using <code>mlflow.set_experiment()</code>. (Tracking uri has
+already been set by <code>mlflow.set_tracking_uri()</code> in <code>config/config.py</code>)</p>
+</li>
+<li>
+<p>Start a mlflow run with the run name = <code>run_name</code> (= <code>sgd</code>).</p>
+</li>
+<li>
+<p>Get <code>run_id</code> using <code>mlflow.active_run().info.run_id</code>.</p>
+</li>
+<li>
+<p>(in <code>train.train</code>) Input <code>df</code> and <code>args</code> to <code>train()</code>, where the <code>train_loss</code> and <code>val_loss</code> of
+each epoch are logged using <code>mlflow.log_metrics(Dict[str, float], Step: optional [int])</code>.</p>
+</li>
+<li>
+<p>(in <code>main.train-model</code>) Get the artifacts dictionary back from <code>train.train()</code>, log additional
+metrics of overall precision, recall, and f1 using <code>mlflow.log_metrics()</code>.</p>
+</li>
+<li>
+<p>Save the parameters using <code>mlflow.log_params(Dict[str, Any])</code> after converting the Namespace args
+by returning the <code>__dict__</code> method of Namespace) to dictionary using <code>vars()</code>.</p>
+</li>
+<li>
+<p>Use <code>mlflow.log_artifacts(local_dir: str)</code> to log all the contents of a local directory as artifacts
+of this run. Here we use <code>with tempfile.TemporaryDirectory() as dp:</code> to create a temporary directory to
+save the artifacts.</p>
+<blockquote>
+<ol>
+<li>
+<p>Use <code>json.dump()</code> to save the dictionary of args to a json file using the serialization encoder
+class l<code>NumpyEncoder</code>.</p>
+</li>
+<li>
+<p>Use the <code>save()</code> method of a <code>LableEncoder</code> class instance to save the <code>class_to_index</code> (key) dictionary
+to a json file.</p>
+</li>
+<li>
+<p>Use <code>joblib.dump()</code> on the <code>vectorizer</code> (a <code>TfidfVectorizer</code> instance) and <code>model</code> (a <code>SGDClassifier</code>
+instance) to save them as <code>.pkl</code> files.</p>
+</li>
+<li>
+<p>Use <code>json.dump()</code> to save the performance dictionary to a json file.</p>
+</li>
+<li>
+<p>Finally use <code>mlflow.log_artifacts(dp)</code> to log all the contents of the temporary directory <code>dp</code>.</p>
+</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>If not a test,</p>
+<blockquote>
+<ol>
+<li>
+<p>Use <code>Path(config.CONFIG_DIR, "run_id.txt")</code> to create a platform-independent file path and open it in
+write mode. Then use the <code>write()</code> method of <code>open(Path(), "w")</code> to write <code>run_id</code> to <code>run_in.txt</code>.</p>
+</li>
+<li>
+<p>Use <code>json.dump()</code> to save the performance dictionary to <code>performance.json</code>.</p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="tagifai.main.elt_data" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">elt_data</span><span class="p">()</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Extract, load and transform our data assets.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>tagifai/main.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">elt_data</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract, load and transform our data assets.&quot;&quot;&quot;</span>
+    <span class="c1"># Extract + Load</span>
+    <span class="n">projects</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">PROJECTS_URL</span><span class="p">)</span>
+    <span class="n">tags</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">TAGS_URL</span><span class="p">)</span>
+    <span class="n">projects</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;projects.csv&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">tags</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;tags.csv&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># Transform</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">projects</span><span class="p">,</span> <span class="n">tags</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">notnull</span><span class="p">()]</span>  <span class="c1"># drop rows w/ no tag</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;labeled_projects.csv&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># logger.info(&quot;✅ Saved data!&quot;)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="tagifai.main.load_artifacts" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">load_artifacts</span><span class="p">(</span><span class="n">run_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Load artifacts for a given run_id.</p>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li><p><strong>run_id</strong> (<code>str</code>) – id of run to load artifacts from.</p></li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+        <ul class="first simple">
+          <li><p><code>Dict</code> – run's artifacts.</p></li>
+        </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>tagifai/main.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load_artifacts</span><span class="p">(</span><span class="n">run_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load artifacts for a given run_id.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        run_id (str): id of run to load artifacts from.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict: run&#39;s artifacts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">run_id</span><span class="p">:</span>
+        <span class="n">run_id</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">CONFIG_DIR</span><span class="p">,</span> <span class="s2">&quot;run_id.txt&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="c1"># Locate specifics artifacts directory</span>
+    <span class="n">experiment_id</span> <span class="o">=</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">get_run</span><span class="p">(</span><span class="n">run_id</span><span class="o">=</span><span class="n">run_id</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">experiment_id</span>
+    <span class="n">artifacts_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">MODEL_REGISTRY</span><span class="p">,</span> <span class="n">experiment_id</span><span class="p">,</span> <span class="n">run_id</span><span class="p">,</span> <span class="s2">&quot;artifacts&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Load objects from run</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">Namespace</span><span class="p">(</span><span class="o">**</span><span class="n">utils</span><span class="o">.</span><span class="n">load_dict</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">artifacts_dir</span><span class="p">,</span> <span class="s2">&quot;args.json&quot;</span><span class="p">)))</span>
+    <span class="n">vectorizer</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">artifacts_dir</span><span class="p">,</span> <span class="s2">&quot;vectorizer.pkl&quot;</span><span class="p">))</span>
+    <span class="n">label_encoder</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">LabelEncoder</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">artifacts_dir</span><span class="p">,</span> <span class="s2">&quot;label_encoder.json&quot;</span><span class="p">))</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">artifacts_dir</span><span class="p">,</span> <span class="s2">&quot;model.pkl&quot;</span><span class="p">))</span>
+    <span class="n">performance</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_dict</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">artifacts_dir</span><span class="p">,</span> <span class="s2">&quot;performance.json&quot;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="n">args</span><span class="p">,</span>
+        <span class="s2">&quot;label_encoder&quot;</span><span class="p">:</span> <span class="n">label_encoder</span><span class="p">,</span>
+        <span class="s2">&quot;vectorizer&quot;</span><span class="p">:</span> <span class="n">vectorizer</span><span class="p">,</span>
+        <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+        <span class="s2">&quot;performance&quot;</span><span class="p">:</span> <span class="n">performance</span><span class="p">,</span>
+    <span class="p">}</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="tagifai.main.optimize" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">optimize</span><span class="p">(</span><span class="n">args_fp</span><span class="o">=</span><span class="s1">&#39;config/args.json&#39;</span><span class="p">,</span> <span class="n">study_name</span><span class="o">=</span><span class="s1">&#39;optimization&#39;</span><span class="p">,</span> <span class="n">num_trials</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Optimize hyperparameters.</p>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li><p><strong>args_fp</strong> (<code>str</code>) – location of args.</p></li>
+            <li><p><strong>study_name</strong> (<code>str</code>) – name of optimization study.</p></li>
+            <li><p><strong>num_trials</strong> (<code>int</code>) – number of trials to run in study.</p></li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>tagifai/main.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">optimize</span><span class="p">(</span>
+    <span class="n">args_fp</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;config/args.json&quot;</span><span class="p">,</span> <span class="n">study_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;optimization&quot;</span><span class="p">,</span> <span class="n">num_trials</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Optimize hyperparameters.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        args_fp (str): location of args.</span>
+<span class="sd">        study_name (str): name of optimization study.</span>
+<span class="sd">        num_trials (int): number of trials to run in study.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Load labeled data</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;labeled_projects.csv&quot;</span><span class="p">))</span>
+
+    <span class="c1"># Optimize</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">Namespace</span><span class="p">(</span><span class="o">**</span><span class="n">utils</span><span class="o">.</span><span class="n">load_dict</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">args_fp</span><span class="p">))</span>
+    <span class="n">pruner</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">pruners</span><span class="o">.</span><span class="n">MedianPruner</span><span class="p">(</span><span class="n">n_startup_trials</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_warmup_steps</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">(</span><span class="n">study_name</span><span class="o">=</span><span class="n">study_name</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;maximize&quot;</span><span class="p">,</span> <span class="n">pruner</span><span class="o">=</span><span class="n">pruner</span><span class="p">)</span>
+    <span class="n">mlflow_callback</span> <span class="o">=</span> <span class="n">MLflowCallback</span><span class="p">(</span><span class="n">tracking_uri</span><span class="o">=</span><span class="n">mlflow</span><span class="o">.</span><span class="n">get_tracking_uri</span><span class="p">(),</span> <span class="n">metric_name</span><span class="o">=</span><span class="s2">&quot;f1&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tracking_uri: </span><span class="si">{</span><span class="n">mlflow</span><span class="o">.</span><span class="n">get_tracking_uri</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">trial</span><span class="p">:</span> <span class="n">train</span><span class="o">.</span><span class="n">objective</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">trial</span><span class="p">),</span>
+        <span class="n">n_trials</span><span class="o">=</span><span class="n">num_trials</span><span class="p">,</span>
+        <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">mlflow_callback</span><span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Best trial</span>
+    <span class="n">trials_df</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">trials_dataframe</span><span class="p">()</span>
+    <span class="n">trials_df</span> <span class="o">=</span> <span class="n">trials_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;user_attrs_f1&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">args.__dict__: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="vm">__dict__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;study.best_trial.params: </span><span class="si">{</span><span class="n">study</span><span class="o">.</span><span class="n">best_trial</span><span class="o">.</span><span class="n">params</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">args</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">,</span> <span class="o">**</span><span class="n">study</span><span class="o">.</span><span class="n">best_trial</span><span class="o">.</span><span class="n">params</span><span class="p">}</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;arg: </span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">save_dict</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="n">args_fp</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">NumpyEncoder</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Best value (f1): </span><span class="si">{</span><span class="n">study</span><span class="o">.</span><span class="n">best_trial</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best hyperparameters: </span><span class="si">{</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">study</span><span class="o">.</span><span class="n">best_trial</span><span class="o">.</span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="tagifai.main.predict_tag" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">predict_tag</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">run_id</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Predict tag for text.</p>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li><p><strong>text</strong> (<code>str</code>) – input text to predict label for.</p></li>
+            <li><p><strong>run_id</strong> (<code>str</code>) – run id to load artifacts for prediction. Defaults to None.</p></li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>tagifai/main.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">predict_tag</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">run_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Predict tag for text.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text (str): input text to predict label for.</span>
+<span class="sd">        run_id (str, optional): run id to load artifacts for prediction. Defaults to None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">run_id</span><span class="p">:</span>
+        <span class="n">run_id</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">CONFIG_DIR</span><span class="p">,</span> <span class="s2">&quot;run_id.txt&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="n">artifacts</span> <span class="o">=</span> <span class="n">load_artifacts</span><span class="p">(</span><span class="n">run_id</span><span class="o">=</span><span class="n">run_id</span><span class="p">)</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="n">predict</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">texts</span><span class="o">=</span><span class="p">[</span><span class="n">text</span><span class="p">],</span> <span class="n">artifacts</span><span class="o">=</span><span class="n">artifacts</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">prediction</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="tagifai.main.train_model" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">train_model</span><span class="p">(</span><span class="n">args_fp</span><span class="o">=</span><span class="s1">&#39;config/args.json&#39;</span><span class="p">,</span> <span class="n">experiment_name</span><span class="o">=</span><span class="s1">&#39;baselines&#39;</span><span class="p">,</span> <span class="n">run_name</span><span class="o">=</span><span class="s1">&#39;sgd&#39;</span><span class="p">,</span> <span class="n">test_run</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Train a model given arguments.</p>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li><p><strong>args_fp</strong> (<code>str</code>) – location of args.</p></li>
+            <li><p><strong>experiment_name</strong> (<code>str</code>) – name of experiment.</p></li>
+            <li><p><strong>run_name</strong> (<code>str</code>) – name of specific run in experiment.</p></li>
+            <li><p><strong>test_run</strong> (<code>bool</code>) – If True, artifacts will not be saved. Defaults to False.</p></li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>tagifai/main.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span>
+    <span class="n">args_fp</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;config/args.json&quot;</span><span class="p">,</span>
+    <span class="n">experiment_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;baselines&quot;</span><span class="p">,</span>
+    <span class="n">run_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sgd&quot;</span><span class="p">,</span>
+    <span class="n">test_run</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Train a model given arguments.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        args_fp (str): location of args.</span>
+<span class="sd">        experiment_name (str): name of experiment.</span>
+<span class="sd">        run_name (str): name of specific run in experiment.</span>
+<span class="sd">        test_run (bool, optional): If True, artifacts will not be saved. Defaults to False.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">args_fp: </span><span class="si">{</span><span class="n">args_fp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;experiment_name: </span><span class="si">{</span><span class="n">experiment_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;run_name: </span><span class="si">{</span><span class="n">run_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;test_run: </span><span class="si">{</span><span class="n">test_run</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Load labeled data</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;labeled_projects.csv&quot;</span><span class="p">))</span>
+
+    <span class="c1"># Train</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">Namespace</span><span class="p">(</span><span class="o">**</span><span class="n">utils</span><span class="o">.</span><span class="n">load_dict</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">args_fp</span><span class="p">))</span>
+    <span class="n">mlflow</span><span class="o">.</span><span class="n">set_experiment</span><span class="p">(</span><span class="n">experiment_name</span><span class="o">=</span><span class="n">experiment_name</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">start_run</span><span class="p">(</span><span class="n">run_name</span><span class="o">=</span><span class="n">run_name</span><span class="p">):</span>
+        <span class="n">run_id</span> <span class="o">=</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">active_run</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">run_id</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;artifact_uri: </span><span class="si">{</span><span class="n">mlflow</span><span class="o">.</span><span class="n">get_artifact_uri</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tracking_uri: </span><span class="si">{</span><span class="n">mlflow</span><span class="o">.</span><span class="n">get_tracking_uri</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Run ID: </span><span class="si">{</span><span class="n">run_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">artifacts</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">performance</span> <span class="o">=</span> <span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;performance&quot;</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">performance</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="c1"># Log metrics and parameters</span>
+        <span class="c1"># performance = artifacts[&quot;performance&quot;]</span>
+        <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metrics</span><span class="p">({</span><span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="n">performance</span><span class="p">[</span><span class="s2">&quot;overall&quot;</span><span class="p">][</span><span class="s2">&quot;precision&quot;</span><span class="p">]})</span>
+        <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metrics</span><span class="p">({</span><span class="s2">&quot;recall&quot;</span><span class="p">:</span> <span class="n">performance</span><span class="p">[</span><span class="s2">&quot;overall&quot;</span><span class="p">][</span><span class="s2">&quot;recall&quot;</span><span class="p">]})</span>
+        <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metrics</span><span class="p">({</span><span class="s2">&quot;f1&quot;</span><span class="p">:</span> <span class="n">performance</span><span class="p">[</span><span class="s2">&quot;overall&quot;</span><span class="p">][</span><span class="s2">&quot;f1&quot;</span><span class="p">]})</span>
+        <span class="n">mlflow</span><span class="o">.</span><span class="n">log_params</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;args&quot;</span><span class="p">]))</span>
+
+        <span class="c1"># Log artifacts</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">dp</span><span class="p">:</span>
+            <span class="n">utils</span><span class="o">.</span><span class="n">save_dict</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;args&quot;</span><span class="p">]),</span> <span class="n">Path</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="s2">&quot;args.json&quot;</span><span class="p">),</span> <span class="bp">cls</span><span class="o">=</span><span class="n">NumpyEncoder</span><span class="p">)</span>
+            <span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;label_encoder&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="s2">&quot;label_encoder.json&quot;</span><span class="p">))</span>
+            <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;vectorizer&quot;</span><span class="p">],</span> <span class="n">Path</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="s2">&quot;vectorizer.pkl&quot;</span><span class="p">))</span>
+            <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">],</span> <span class="n">Path</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="s2">&quot;model.pkl&quot;</span><span class="p">))</span>
+            <span class="n">utils</span><span class="o">.</span><span class="n">save_dict</span><span class="p">(</span><span class="n">performance</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="s2">&quot;performance.json&quot;</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;artifact_uri: </span><span class="si">{</span><span class="n">mlflow</span><span class="o">.</span><span class="n">get_artifact_uri</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tracking_uri: </span><span class="si">{</span><span class="n">mlflow</span><span class="o">.</span><span class="n">get_tracking_uri</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">mlflow</span><span class="o">.</span><span class="n">log_artifacts</span><span class="p">(</span><span class="n">dp</span><span class="p">)</span>
+
+    <span class="c1"># Save to config</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">test_run</span><span class="p">:</span>  <span class="c1"># pragma: no cover, actual run</span>
+        <span class="nb">open</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">CONFIG_DIR</span><span class="p">,</span> <span class="s2">&quot;run_id.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">run_id</span><span class="p">)</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">save_dict</span><span class="p">(</span><span class="n">performance</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">CONFIG_DIR</span><span class="p">,</span> <span class="s2">&quot;performance.json&quot;</span><span class="p">))</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../.." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../data/" class="btn btn-neutral float-right" title="data">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/tonypeng1/mlops" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../.." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../data/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
